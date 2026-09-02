@@ -29,7 +29,11 @@ public class Library {
 
         for (Book book : books) {
             String title = book.getTitle();
-            if (title != null && title.toLowerCase().contains(queryLower)) {
+            if (title == null) {
+                continue;
+            }
+
+            if (title.toLowerCase().contains(queryLower)) {
                 result.add(book);
             }
         }
@@ -47,7 +51,11 @@ public class Library {
 
         for (Book book : books) {
             String author = book.getAuthor();
-            if (author != null && author.toLowerCase().contains(queryLower)) {
+            if (author == null) {
+                continue;
+            }
+
+            if (author.toLowerCase().contains(queryLower)) {
                 result.add(book);
             }
         }
