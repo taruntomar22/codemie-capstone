@@ -50,3 +50,9 @@ Feature: Library Management
     And I add a book with ISBN "978002", title "Effective Java", and author "Joshua Bloch"
     When I borrow the book with ISBN "978001"
     Then 1 book should be listed as borrowed
+
+  Scenario: List only available books after borrowing one
+    Given the library contains a book with ISBN "978001", title "Clean Code", and author "Robert C. Martin"
+    And I add a book with ISBN "978002", title "Effective Java", and author "Joshua Bloch"
+    When I borrow the book with ISBN "978001"
+    Then 1 book should be listed as available
