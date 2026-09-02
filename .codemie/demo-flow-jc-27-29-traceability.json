@@ -1,0 +1,128 @@
+{
+  "demoFlow": "Demo Flow 5 - Development",
+  "status": "READY_FOR_HUMAN_REVIEW",
+  "date": "2026-09-02",
+  "jira": {
+    "baseUrl": "https://taruntomar.atlassian.net",
+    "project": "JIRA Capstone",
+    "key": "JC",
+    "issues": [
+      {
+        "key": "JC-27",
+        "summary": "Enforce unique ISBNs and reject duplicate ISBNs without changing library state",
+        "status": "implemented"
+      },
+      {
+        "key": "JC-28",
+        "summary": "returnBook fails when ISBN does not exist or book is already available; succeeds only when currently borrowed",
+        "status": "implemented"
+      },
+      {
+        "key": "JC-29",
+        "summary": "Add findBooksByTitle, findBooksByAuthor (case-insensitive contains), listAvailableBooks, listBorrowedBooks",
+        "status": "implemented"
+      }
+    ]
+  },
+  "confluence": {
+    "baseUrl": "https://taruntomar.atlassian.net/wiki",
+    "space": "NewSpace",
+    "spaceKey": "NewSpace",
+    "artifacts": [
+      {
+        "id": "13729793",
+        "title": "Gap Analysis",
+        "role": "Maps JC-27/JC-28/JC-29 to observed gaps and recommendations"
+      },
+      {
+        "id": "13697025",
+        "title": "Prior Demo Flow 1",
+        "role": "Earlier gap analysis (Epic JC-22, features JC-23-26); superseded context"
+      }
+    ]
+  },
+  "git": {
+    "repo": "https://github.com/taruntomar22/codemie-capstone",
+    "branch": "plan/jc-27-29-library-enhancements",
+    "baseBranch": "main",
+    "commits": [
+      {
+        "sha": "a8e5c60",
+        "message": "Add implementation plan for JC-27/JC-28/JC-29"
+      },
+      {
+        "sha": "cda31e6",
+        "message": "JC-27, JC-28, JC-29: enforce ISBN uniqueness, validate returns, add search/availability queries"
+      },
+      {
+        "sha": "a708f00",
+        "message": "JC-29: add listBorrowedBooks for completeness with listAvailableBooks"
+      },
+      {
+        "sha": "e38dae7",
+        "message": "Fix feature file: keep scenarios aligned with implemented steps"
+      },
+      {
+        "sha": "b3dca13",
+        "message": "Add Cucumber step for listAvailableBooks count assertion"
+      },
+      {
+        "sha": "45d47e4",
+        "message": "Remove invalid Cucumber borrowed-books step referencing non-existent API"
+      },
+      {
+        "sha": "744784c",
+        "message": "Re-apply null-safe search implementation in Library"
+      },
+      {
+        "sha": "ac61405",
+        "message": "Re-apply pom.xml Java 17 properties"
+      },
+      {
+        "sha": "433708a",
+        "message": "Use maven.compiler.* properties in compiler plugin"
+      },
+      {
+        "sha": "94c247a",
+        "message": "Docs: update README with setup/build/test/run and JC-27/28/29 feature notes"
+      },
+      {
+        "sha": "0dcbbc8",
+        "message": "JC-27, JC-28, JC-29: add demo flow traceability record"
+      }
+    ],
+    "pullRequest": {
+      "number": 1,
+      "url": "https://github.com/taruntomar22/codemie-capstone/pull/1",
+      "state": "open",
+      "headSha": "0dcbbc8aa0cc29e54cdc036b7eaffe3b632b5a48"
+    },
+    "note": "Commits e38dae7 through 94c247a were pushed directly to this branch by another actor (taruntomar22) concurrently with this work; this traceability commit was rebased on top of them to avoid a force-push or loss of either party's changes."
+  },
+  "changedFiles": [
+    "docs/IMPLEMENTATION_PLAN_JC-27_28_29.md",
+    "README.md",
+    "pom.xml",
+    "src/main/java/com/example/library/Library.java",
+    "src/main/resources/features/library.feature",
+    "src/test/java/com/example/library/LibraryStepDefinitions.java",
+    "src/test/java/com/example/library/LibraryTest.java"
+  ],
+  "build": {
+    "tool": "Maven",
+    "result": "SUCCESS"
+  },
+  "tests": {
+    "unit": {
+      "framework": "JUnit 5",
+      "run": 14,
+      "failures": 0,
+      "errors": 0
+    },
+    "acceptance": {
+      "framework": "Cucumber",
+      "scenarios": 10,
+      "failures": 0
+    }
+  }
+}
