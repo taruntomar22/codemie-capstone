@@ -129,6 +129,18 @@ class LibraryTest {
     }
 
     @Test
+    void shouldReturnEmptyListWhenFindBooksByTitleQueryIsNull() {
+
+        assertDoesNotThrow(
+                () -> {
+                    List<Book> books = library.findBooksByTitle(null);
+                    assertNotNull(books);
+                    assertEquals(0, books.size());
+                }
+        );
+    }
+
+    @Test
     void shouldFindBooksByAuthor() {
 
         library.addBook(
@@ -139,6 +151,18 @@ class LibraryTest {
 
         assertEquals(1, books.size());
         assertEquals("Clean Code", books.get(0).getTitle());
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenFindBooksByAuthorQueryIsNull() {
+
+        assertDoesNotThrow(
+                () -> {
+                    List<Book> books = library.findBooksByAuthor(null);
+                    assertNotNull(books);
+                    assertEquals(0, books.size());
+                }
+        );
     }
 
     @Test
