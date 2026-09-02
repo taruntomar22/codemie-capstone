@@ -94,4 +94,104 @@ class LibraryTest {
 
         assertTrue(book.isAvailable());
     }
+
+    @Test
+    void shouldRejectDuplicateIsbn() {
+
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> library.addBook(
+                        new Book("978001", "Another Title", "Another Author")
+                )
+        );
+
+        assertEquals(1, library.listBooks().size());
+    }
+
+    @Test
+    void shouldNotReturnBookThatIsAlreadyAvailable() {
+
+        boolean result = library.returnBook("978001");
+
+        assertFalse(result);
+    }
+
+    @Test
+    void shouldFindBooksByTitle() {
+
+        library.addBook(
+                new Book("978002", "Clean Architecture", "Robert C. Martin")
+        );
+
+        List<Book> books = library.findBooksByTitle("clean");
+
+        assertEquals(2, books.size());
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenFindBooksByTitleQueryIsNull() {
+
+        assertDoesNotThrow(
+                () -> {
+                    List<Book> books = library.findBooksByTitle(null);
+                    assertNotNull(books);
+                    assertEquals(0, books.size());
+                }
+        );
+    }
+
+    @Test
+    void shouldFindBooksByAuthor() {
+
+        library.addBook(
+                new Book("978002", "Effective Java", "Joshua Bloch")
+        );
+
+        List<Book> books = library.findBooksByAuthor("martin");
+
+        assertEquals(1, books.size());
+        assertEquals("Clean Code", books.get(0).getTitle());
+    }
+
+    @Test
+    void shouldReturnEmptyListWhenFindBooksByAuthorQueryIsNull() {
+
+        assertDoesNotThrow(
+                () -> {
+                    List<Book> books = library.findBooksByAuthor(null);
+                    assertNotNull(books);
+                    assertEquals(0, books.size());
+                }
+        );
+    }
+
+    @Test
+    void shouldListOnlyAvailableBooks() {
+
+        library.addBook(
+                new Book("978002", "Effective Java", "Joshua Bloch")
+        );
+
+        library.borrowBook("978001");
+
+        List<Book> available = library.listAvailableBooks();
+
+        assertEquals(1, available.size());
+        assertEquals("978002", available.get(0).getIsbn());
+    }
+
+    @Test
+    void shouldListOnlyBorrowedBooks() {
+
+        library.addBook(
+                new Book("978002", "Effective Java", "Joshua Bloch")
+        );
+
+        library.borrowBook("978001");
+
+        List<Book> borrowed = library.listBorrowedBooks();
+
+        assertEquals(1, borrowed.size());
+        assertEquals("978001", borrowed.get(0).getIsbn());
+    }
 }
