@@ -44,3 +44,9 @@ Feature: Library Management
     Given the library contains a book with ISBN "978001", title "Clean Code", and author "Robert C. Martin"
     When I search for books with author containing "martin"
     Then 1 book should be found by author
+
+  Scenario: List only borrowed books
+    Given the library contains a book with ISBN "978001", title "Clean Code", and author "Robert C. Martin"
+    And I add a book with ISBN "978002", title "Effective Java", and author "Joshua Bloch"
+    When I borrow the book with ISBN "978001"
+    Then 1 book should be listed as borrowed

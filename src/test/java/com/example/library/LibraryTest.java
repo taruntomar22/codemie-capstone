@@ -155,4 +155,19 @@ class LibraryTest {
         assertEquals(1, available.size());
         assertEquals("978002", available.get(0).getIsbn());
     }
+
+    @Test
+    void shouldListOnlyBorrowedBooks() {
+
+        library.addBook(
+                new Book("978002", "Effective Java", "Joshua Bloch")
+        );
+
+        library.borrowBook("978001");
+
+        List<Book> borrowed = library.listBorrowedBooks();
+
+        assertEquals(1, borrowed.size());
+        assertEquals("978001", borrowed.get(0).getIsbn());
+    }
 }

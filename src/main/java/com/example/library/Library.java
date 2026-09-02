@@ -55,6 +55,18 @@ public class Library {
         return result;
     }
 
+    public List<Book> listBorrowedBooks() {
+        List<Book> result = new ArrayList<>();
+
+        for (Book book : books) {
+            if (!book.isAvailable()) {
+                result.add(book);
+            }
+        }
+
+        return result;
+    }
+
     public Book findBookByIsbn(String isbn) {
         for (Book book : books) {
             if (book.getIsbn().equals(isbn)) {

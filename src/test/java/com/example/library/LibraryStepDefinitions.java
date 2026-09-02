@@ -198,4 +198,10 @@ public class LibraryStepDefinitions {
 
         assertEquals(count, foundBooks.size());
     }
+
+    @Then("{int} book should be listed as borrowed")
+    public void nBookShouldBeListedAsBorrowed(int count) {
+
+        assertEquals(count, library.listBorrowedBooks().size());
+    }
 }
