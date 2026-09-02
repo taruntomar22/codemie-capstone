@@ -20,10 +20,16 @@ public class Library {
     }
 
     public List<Book> findBooksByTitle(String query) {
+        if (query == null) {
+            return new ArrayList<>();
+        }
+
+        String queryLower = query.toLowerCase();
         List<Book> result = new ArrayList<>();
 
         for (Book book : books) {
-            if (book.getTitle().toLowerCase().contains(query.toLowerCase())) {
+            String title = book.getTitle();
+            if (title != null && title.toLowerCase().contains(queryLower)) {
                 result.add(book);
             }
         }
@@ -32,10 +38,16 @@ public class Library {
     }
 
     public List<Book> findBooksByAuthor(String query) {
+        if (query == null) {
+            return new ArrayList<>();
+        }
+
+        String queryLower = query.toLowerCase();
         List<Book> result = new ArrayList<>();
 
         for (Book book : books) {
-            if (book.getAuthor().toLowerCase().contains(query.toLowerCase())) {
+            String author = book.getAuthor();
+            if (author != null && author.toLowerCase().contains(queryLower)) {
                 result.add(book);
             }
         }
