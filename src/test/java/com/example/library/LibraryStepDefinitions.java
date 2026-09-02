@@ -4,12 +4,17 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LibraryStepDefinitions {
 
     private Library library;
     private Book foundBook;
+    private List<Book> foundBooks;
+    private boolean addRejected;
+    private boolean returnResult;
 
     @Given("the library is empty")
     public void theLibraryIsEmpty() {
@@ -136,5 +141,61 @@ public class LibraryStepDefinitions {
 
         assertNotNull(book);
         assertTrue(book.isAvailable());
+    }
+
+    @When("I try to add a book with ISBN {string}, title {string}, and author {string}")
+    public void iTryToAddABook(
+            String isbn,
+            String title,
+            String author) {
+
+        try {
+            library.addBook(new Book(isbn, title, author));
+            addRejected = false;
+        } catch (IllegalArgumentException e) {
+            addRejected = true;
+        }
+    }
+
+    @Then("the book should be rejected as a duplicate")
+    public void theBookShouldBeRejectedAsADuplicate() {
+
+        assertTrue(addRejected);
+    }
+
+    @When("I try to return the book with ISBN {string}")
+    public void iTryToReturnTheBook(String isbn) {
+
+        returnResult = library.returnBook(isbn);
+    }
+
+    @Then("the return should fail")
+    public void theReturnShouldFail() {
+
+        assertFalse(returnResult);
+    }
+
+    @When("I search for books with title containing {string}")
+    public void iSearchForBooksWithTitleContaining(String query) {
+
+        foundBooks = library.findBooksByTitle(query);
+    }
+
+    @Then("{int} book should be found by title")
+    public void nBookShouldBeFoundByTitle(int count) {
+
+        assertEquals(count, foundBooks.size());
+    }
+
+    @When("I search for books with author containing {string}")
+    public void iSearchForBooksWithAuthorContaining(String query) {
+
+        foundBooks = library.findBooksByAuthor(query);
+    }
+
+    @Then("{int} book should be found by author")
+    public void nBookShouldBeFoundByAuthor(int count) {
+
+        assertEquals(count, foundBooks.size());
     }
 }
